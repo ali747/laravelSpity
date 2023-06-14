@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -23,6 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('users', [UserController::class, 'store']);
+Route::get('check-ip', [AttendanceController::class, 'checkIn']);
+Route::get('checkout', [AttendanceController::class, 'checkout']);
 
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
@@ -30,5 +32,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('users/{id}', [UserController::class, 'show']);
     Route::put('users/{id}', [UserController::class, 'update']);
     Route::delete('users/{id}', [UserController::class, 'destroy']);
-    Route::get('check-ip', [AddressController::class, 'checkIPAddress']);
+
+    //Route::post('check-ip', [AttendanceController::class, 'markAttendance']);
 });
